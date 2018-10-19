@@ -159,8 +159,8 @@
 
           <!-- Shortcuts -->
           <x-shortcuts
-            g-suite-shortcuts="{{gSuiteShortcuts}}"
-            show-wds-domain="{{showWdsDomain}}"
+            troly-shortcuts="{{trolyShortcuts}}"
+            show-tech="{{showTech}}"
             on-open-customize-dialog="_openCustomizeDialog">
           </x-shortcuts>
 
@@ -197,9 +197,8 @@
         <paper-checkbox checked="{{showLogo}}">Show Google logo.</paper-checkbox>
 
         <!-- Search box -->
-        <h3>WDS.sk domain apps</h3>
-        <paper-checkbox checked="{{showWdsDomain}}">Show apps specific to @wds.sk domain.</paper-checkbox>
-        <p>Unless you have a G Suite account for domain @wds.sk, you will want to turn this setting <strong>off</strong> as you won't be able to access these apps.</p>
+        <h3>Tech related Links</h3>
+        <paper-checkbox checked="{{showTech}}">Show apps specific to Troly Tech</paper-checkbox>
 
         <!-- Search box -->
         <h3>Menu drawer</h3>
@@ -222,7 +221,7 @@
         <!-- Shortcuts -->
         <h3>Shortcuts:</h3>
         <div class="columns">
-          <template is="dom-repeat" items="{{gSuiteShortcuts}}" as="shortcut">
+          <template is="dom-repeat" items="{{trolyShortcuts}}" as="shortcut">
             <paper-checkbox checked="{{shortcut.visible}}">[[shortcut.title]]</paper-checkbox>
           </template>
         </div>
@@ -243,12 +242,11 @@
     <paper-dialog id="changelog" modal>
       <h2>What's New</h2>
       <paper-dialog-scrollable>
-        G Suite New Tab extension just got updated! Highlights:<br>
+        Troly New Tab extension just got updated! Highlights:<br>
         <br>
-        * [New] Ability to toggle visibility of Dashboard and Bookmarks cards from extension settings.<br>
+        * [New] The whole extension is new!!!<br>
         <br>
-        Full changelog: <a href="https://chrome.google.com/webstore/detail/g-suite-new-tab/ehpgcagmhpndkmglombjndkdmggkgnge">Webstore</a><br>
-        Source code: <a href="https://github.com/michalsukupcak/G-Suite-New-Tab" target="_blank">Github</a><br>
+        Source code: <a href="https://github.com/humphrey91/G-Suite-New-Tab" target="_blank">Github</a><br>
       </paper-dialog-scrollable>
       <div class="buttons">
        <paper-button dialog-dismiss>Close</paper-button>
@@ -267,14 +265,14 @@
     </iron-signals>
 
     <!-- Browser local storage -->
-    <iron-localstorage name="__gsuitenewtab_gsuiteshortcuts" value="{{gSuiteShortcuts}}"></iron-localstorage>
-    <iron-localstorage name="__gsuitenewtab_showbookmarkscard" value="{{showBookmarksCard}}"></iron-localstorage>
-    <iron-localstorage name="__gsuitenewtab_showdashboardcard" value="{{showDashboardCard}}"></iron-localstorage>
-    <iron-localstorage name="__gsuitenewtab_showlogo" value="{{showLogo}}"></iron-localstorage>
-    <iron-localstorage name="__gsuitenewtab_showwdsdomain" value="{{showWdsDomain}}"></iron-localstorage>
-    <iron-localstorage name="__gsuitenewtab_tabs" value="{{tabs}}"></iron-localstorage>
-    <iron-localstorage name="__gsuitenewtab_usefixeddrawer" value="{{useFixedDrawer}}"></iron-localstorage>
-    <iron-localstorage name="__gsuitenewtab_useflatstyle" value="{{useFlatStyle}}"></iron-localstorage>
+    <iron-localstorage name="__trolynewtab_trolyShortcuts" value="{{trolyShortcuts}}"></iron-localstorage>
+    <iron-localstorage name="__trolynewtab_showbookmarkscard" value="{{showBookmarksCard}}"></iron-localstorage>
+    <iron-localstorage name="__trolynewtab_showdashboardcard" value="{{showDashboardCard}}"></iron-localstorage>
+    <iron-localstorage name="__trolynewtab_showlogo" value="{{showLogo}}"></iron-localstorage>
+    <iron-localstorage name="__trolynewtab_showTech" value="{{showTech}}"></iron-localstorage>
+    <iron-localstorage name="__trolynewtab_tabs" value="{{tabs}}"></iron-localstorage>
+    <iron-localstorage name="__trolynewtab_usefixeddrawer" value="{{useFixedDrawer}}"></iron-localstorage>
+    <iron-localstorage name="__trolynewtab_useflatstyle" value="{{useFlatStyle}}"></iron-localstorage>
 
   </template>
   <script>
@@ -297,9 +295,9 @@
           },
 
           /**
-           * List of G Suite app shortcuts.
+           * List of Troly app shortcuts.
            */
-          gSuiteShortcuts: {
+          trolyShortcuts: {
             type: Array
           },
 
@@ -311,9 +309,9 @@
           },
 
           /**
-           * WDS apps visibility toggle.
+           * Tech link visibility toggle.
            */
-          showWdsDomain: {
+          showTech: {
             type: Boolean
           },
 
@@ -343,11 +341,11 @@
         },
         observers: [
           '_setDefaultValues(' +
-            'gSuiteShortcuts,' +
+            'trolyShortcuts,' +
             'showBookmarksCard,' +
             'showDashboardCard,' +
             'showLogo,' +
-            'showWdsDomain,' +
+            'showTech,' +
             'tabs,' +
             'useFixedDrawer,' +
             'useFlatStyle' +
@@ -363,30 +361,30 @@
         ready: function () {
 
           // Reset extension if new version is detected
-          var version = '__gsuitenewtab_version_check_' + this.APP_VERSION;
+          var version = '__trolynewtab_version_check_' + this.APP_VERSION;
           if (!window.localStorage.getItem(version)) {
 
             // Save new version item
             window.localStorage.setItem(version, true);
 
             // Update script
-            var gSuiteShortcutsString = window.localStorage.getItem('__gsuitenewtab_gsuiteshortcuts');
-            if (gSuiteShortcutsString) {
+            var trolyShortcutsString = window.localStorage.getItem('__trolynewtab_trolyShortcuts');
+            if (trolyShortcutsString) {
               // var groupsExists = false;
               // var cloudConsoleExists = false;
-              var gSuiteShortcuts = JSON.parse(gSuiteShortcutsString);
-              gSuiteShortcuts.forEach(function (gSuiteShortcut) {
-                if (gSuiteShortcut.title === 'Groups') {
-                  gSuiteShortcut.page = 'https://groups.google.com/'
+              var trolyShortcuts = JSON.parse(trolyShortcutsString);
+              trolyShortcuts.forEach(function (trolyShortcut) {
+                if (trolyShortcut.title === 'Groups') {
+                  trolyShortcut.page = 'https://groups.google.com/'
                 }
               });
               // if (groupsExists) {
-              //   gSuiteShortcuts.splice(6, 0, { type: 'web', icon: 'analytics', title: 'Analytics', page: 'https://analytics.google.com/analytics/web', visible: true });
+              //   trolyShortcuts.splice(6, 0, { type: 'web', icon: 'analytics', title: 'Analytics', page: 'https://analytics.google.com/analytics/web', visible: true });
               // }
               // if (!cloudConsoleExists) {
-              //   gSuiteShortcuts.splice(10, 0, { type: 'web', icon: 'cloud-console', title: 'Cloud Console', page: 'https://console.cloud.google.com/', visible: true });
+              //   trolyShortcuts.splice(10, 0, { type: 'web', icon: 'cloud-console', title: 'Cloud Console', page: 'https://console.cloud.google.com/', visible: true });
               // }
-              window.localStorage.setItem('__gsuitenewtab_gsuiteshortcuts', gSuiteShortcuts);
+              window.localStorage.setItem('__trolynewtab_trolyShortcuts', trolyShortcuts);
             }
 
             // Open changelog
@@ -445,51 +443,39 @@
         /**
          * Observer for default configuration values.
          *
-         * @param gSuiteShortcuts
+         * @param trolyShortcuts
          * @param showBookmarksCard
          * @param showDashboardCard
          * @param showLogo
-         * @param showWdsDomain
+         * @param showTech
          * @param tabs
          * @param useFixedDrawer
          * @param useFlatStyle
          * @private
          */
         _setDefaultValues: function (
-            gSuiteShortcuts,
+            trolyShortcuts,
             showBookmarksCard,
             showDashboardCard,
             showLogo,
-            showWdsDomain,
+            showTech,
             tabs,
             useFixedDrawer,
             useFlatStyle
         ) {
           this.debounce('_setDefaultValues', function () {
-            if (!gSuiteShortcuts) {
+            if (!trolyShortcuts) {
 
-              // Create initial gSuite apps (if empty)
-              this.set('gSuiteShortcuts', [
-                { type: 'web', icon: 'admin', title: 'Admin', page: 'https://admin.google.com/AdminHome', visible: true },
-                { type: 'web', icon: 'chat', title: 'Chat', page: 'https://chat.google.com', visible: true },
+              // Create initial Troly apps (if empty)
+              this.set('trolyShortcuts', [
+                { type: 'web', icon: 'troly-logo-128', title: 'Troly App', page: 'https://app.troly.io', visible: true },
+                { type: 'web', icon: '', title: 'Kayako', page: 'https://troly.kayako.com/agent/login', visible: true },
+                { type: 'web', icon: 'asana-128', title: 'Asana', page: 'https://app.asana.com', visible: true },
                 { type: 'web', icon: 'meet', title: 'Meet', page: 'https://meet.google.com', visible: true },
-                { type: 'web', icon: 'hangouts', title: 'Hangouts', page: 'https://hangouts.google.com', visible: true },
                 { type: 'web', icon: 'drive', title: 'Drive', page: 'https://drive.google.com/drive/my-drive', visible: true },
-                { type: 'web', icon: 'keep', title: 'Keep', page: 'https://keep.google.com/', visible: true },
-                { type: 'web', icon: 'analytics', title: 'Analytics', page: 'https://analytics.google.com/analytics/web', visible: true },
-                { type: 'web', icon: 'firebase', title: 'Firebase', page: 'https://console.firebase.google.com/', visible: true },
-                { type: 'web', icon: 'jamboard', title: 'Jamboard', page: 'https://jamboard.google.com/', visible: true },
-                { type: 'web', icon: 'gallery', title: 'Gallery.io', page: 'https://gallery.io/', visible: true },
-                { type: 'web', icon: 'cloud-console', title: 'Cloud Console', page: 'https://console.cloud.google.com/', visible: true },
                 { type: 'web', icon: 'calendar', title: 'Calendar', page: 'https://calendar.google.com/calendar/render', visible: true },
                 { type: 'web', icon: 'inbox', title: 'Inbox', page: 'https://inbox.google.com', visible: true },
-                { type: 'web', icon: 'cloud', title: 'Cloud Search', page: 'https://cloudsearch.google.com/cloudsearch', visible: true },
-                { type: 'web', icon: 'my-account', title: 'My Account', page: 'https://myaccount.google.com/', visible: true },
-                { type: 'web', icon: 'groups', title: 'Groups', page: 'https://groups.google.com/', visible: true },
-                { type: 'web', icon: 'contacts', title: 'Contacts', page: 'https://contacts.google.com', visible: true },
                 { type: 'web', icon: 'gmail', title: 'Gmail', page: 'https://mail.google.com/mail/u/0/#inbox', visible: true },
-                { type: 'web', icon: 'plus', title: 'Google+', page: 'https://plus.google.com/', visible: true },
-                { type: 'web', icon: 'play-console', title: 'Play Console', page: 'https://play.google.com/apps/publish', visible: true }
               ]);
             }
 
@@ -513,9 +499,9 @@
               this.set('showLogo', true);
             }
 
-            // WDS domain apps are visible by default
-            if (showWdsDomain === null) {
-              this.set('showWdsDomain', false);
+            // Tech links are visible by default
+            if (showTech === null) {
+              this.set('showTech', false);
             }
 
             // Create initial tabs config (if empty)

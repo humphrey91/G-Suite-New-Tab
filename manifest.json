@@ -1,12 +1,12 @@
 {
   "manifest_version": 2,
   "version": "2.4.0",
-  "name": "G Suite New Tab",
+  "name": "Troly New Tab",
   "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'",
   "icons": {
-    "16": "images/g-suite-icon-16.png",
-    "48": "images/g-suite-icon-48.png",
-    "128": "images/g-suite-icon-128.png"
+    "16": "images/troly-logo-16.png",
+    "48": "images/troly-logo-48.png",
+    "128": "images/troly-logo-128.png"
   },
   "chrome_url_overrides": {
     "newtab": "index.vulcanized.html"

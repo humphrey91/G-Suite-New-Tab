@@ -1,8 +1,8 @@
-# G Suite New Tab Page
+# Troly New Tab Page
 
-Chrome New Tab Page replacement for G Suite users inspired by Material Design.
+Chrome New Tab Page replacement for Troly users inspired by Material Design.
 
-![G Suite New Tab](https://lh3.googleusercontent.com/T1TrWgtkHAfFukYw9suYP3YcSOHalTW_6TgQFVGeYg6nFJHR5BCiR1zrgfIxoFPHeR1JD2zTvw=w640-h400-e365)
+![Troly New Tab](https://lh3.googleusercontent.com/T1TrWgtkHAfFukYw9suYP3YcSOHalTW_6TgQFVGeYg6nFJHR5BCiR1zrgfIxoFPHeR1JD2zTvw=w640-h400-e365)
 
 You can install the final product for free from the [Chrome Web Store](https://chrome.google.com/webstore/detail/apps-for-work-new-tab/ehpgcagmhpndkmglombjndkdmggkgnge).
 

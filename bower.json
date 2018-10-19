@@ -1,7 +1,7 @@
 {
-  "name": "g-suite-new-tab",
+  "name": "troly-new-tab",
   "authors": [
-    "Michal Sukupčák"
+    "Josh Humphrey"
   ],
   "private": true,
   "dependencies": {
@@ -27,5 +27,11 @@
     "iron-flex-layout": "PolymerElements/iron-flex-layout#^2.0.2",
     "paper-styles": "PolymerElements/paper-styles#^2.0.0",
     "paper-listbox": "PolymerElements/paper-listbox#^2.0.0"
+  },
+  "resolutions": {
+    "polymer": "^2.5.0",
+    "iron-flex-layout": "^2.0.2",
+    "paper-styles": "^2.0.0",
+    "webcomponentsjs": "^v1.1.0"
   }
 }

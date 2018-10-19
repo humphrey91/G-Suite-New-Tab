@@ -13,7 +13,7 @@
 
       /* Wrapper / Shortcuts */
       div.wrapper div.block { @apply(--layout-horizontal); @apply(--layout-center-justified); @apply(--layout-wrap); font-size: 1.3em; }
-      div.wrapper div.block.wds { border-top: 1px solid var(--divider-color); margin: 18px auto auto auto; max-width: 1024px; padding: 18px 0 0 0; }
+      div.wrapper div.block.tech { border-top: 1px solid var(--divider-color); margin: 18px auto auto auto; max-width: 1024px; padding: 18px 0 0 0; }
       div.wrapper div.block a.shortcut { border-radius: 3px; padding: 18px 0 0 0; position: relative; text-decoration: none; transition: .2s ease; width: 128px; }
       div.wrapper div.block a.shortcut:hover { background: var(--border-color); cursor: pointer; }
       div.wrapper div.block a.shortcut:hover > p { color: var(--dark-gray-text-color); }
@@ -30,9 +30,9 @@
 
     <div class="wrapper">
 
-      <!-- G Suite Shortcuts -->
+      <!-- Troly Shortcuts -->
       <div class="block">
-        <template is="dom-repeat" items="[[gSuiteShortcuts]]" as="shortcut">
+        <template is="dom-repeat" items="[[trolyShortcuts]]" as="shortcut">
           <a href="[[shortcut.page]]" class="shortcut" hidden$="[[!shortcut.visible]]">
             <paper-ripple></paper-ripple>
             <img src="../../images/shortcuts/[[shortcut.icon]].png">
@@ -41,10 +41,10 @@
         </template>
       </div>
 
-      <!-- WDS Domain Shortcuts -->
-      <template is="dom-if" if="[[showWdsDomain]]">
-        <div class="block wds">
-          <template is="dom-repeat" items="[[wdsDomainShortcuts]]" as="shortcut">
+      <!-- Tech Shortcuts -->
+      <template is="dom-if" if="[[showTech]]">
+        <div class="block tech">
+          <template is="dom-repeat" items="[[techShortcuts]]" as="shortcut">
             <a href="[[shortcut.page]]" class="shortcut" hidden$="[[!shortcut.visible]]">
               <paper-ripple></paper-ripple>
               <img src="../../images/shortcuts/[[shortcut.icon]].png">
@@ -77,30 +77,30 @@
           /**
            * List of shortcuts on homepage.
            */
-          gSuiteShortCuts: {
+          trolyShortcuts: {
             type: Array
           },
 
           /**
-           * WDS apps visibility toggle.
+           * Tech link visibility toggle.
            */
-          showWdsDomain: {
+          showTech: {
             type: Boolean
           },
 
           /**
-           * List of WDS apps.
+           * List of Tech apps.
            */
-          wdsDomainShortcuts: {
+          techShortcuts: {
             type: Array,
             value: function () {
               return [
-                { type: 'web', icon: 'confluence', title: 'Confluence', page: 'https://confluence.wds.sk/', visible: true },
-                { type: 'web', icon: 'jira', title: 'JIRA', page: 'https://jira.wds.sk/', visible: true },
-                { type: 'web', icon: 'nextcloud', title: 'Nextcloud', page: 'https://nextcloud.wds.sk/', visible: true },
-                { type: 'web', icon: 'zabbix', title: 'Zabbix', page: 'https://monitor.wds.sk/zabbix', visible: true },
-                { type: 'web', icon: 'gitlab', title: 'Gitlab', page: 'https://gitlab.wds.sk/', visible: true },
-                { type: 'web', icon: 'kibana', title: 'Kibana', page: 'https://elk.wds.sk/', visible: true }
+                { type: 'web', icon: 'heroku-128', title: 'Heroku', page: 'https://dashboard.heroku.com/apps/subscribility', visible: true },
+                { type: 'web', icon: 'octocat-128', title: 'Github', page: 'https://github.com/EmpireOneGroup/Troly', visible: true },
+                { type: 'web', icon: 'papertrail-128', title: 'PaperTrail', page: 'https://papertrailapp.com/systems/subscribility/events', visible: true },
+                { type: 'web', icon: 'so-128', title: 'Stack Overflow', page: 'https://stackoverflow.com/', visible: true },
+                { type: 'web', icon: 'ruby-128', title: 'Ruby Docs', page: 'https://ruby-doc.org/', visible: true },
+                { type: 'web', icon: 'rails-128', title: 'Rails Docs', page: 'https://guides.rubyonrails.org/', visible: true }
               ]
             }
           }
